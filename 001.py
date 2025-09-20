@@ -4,7 +4,6 @@ inteiro, informe que não é um número inteiro.
 """
 
 
-
 try:
     n = int(input('Digite um número: '))
 
