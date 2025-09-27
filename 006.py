@@ -30,9 +30,7 @@ def linha():
     print('-='*30)
 
 def format_cpf(text):
-    # Só pega os números
     digits = "".join(c for c in text if c.isdigit())
-    # Aplica a máscara
     masked = ""
     mask_index = 0
     for d in digits:
@@ -41,11 +39,9 @@ def format_cpf(text):
             mask_index += 1
         masked += d
         mask_index += 1
-    # Completa com underscores
     masked += cpf_mask[mask_index:]
     return masked
 
-# Leitura do CPF do usuário
 while True:
     cpf = input("Digite o CPF que deseja verificar (apenas números): ")
     linha()
@@ -59,25 +55,17 @@ while True:
 
 print("CPF digitado:", format_cpf(cpf))
 
-# -------------------------
-# Validação dos dígitos
-
-# Pega os 9 primeiros números
 base = cpf[:9]
 
-# Primeiro dígito
 soma = sum(int(numero) * (10 - i) for i, numero in enumerate(base))
 resto = (soma * 10) % 11
 digito1 = 0 if resto > 9 else resto
 
-# Segundo dígito
 base += str(digito1)
 soma = sum(int(numero) * (11 - i) for i, numero in enumerate(base))
 resto = (soma * 10) % 11
-digito2 = 0 if resto > 9 else resto
+digito2 = 0 if resto >= 9 else resto
 
-# -------------------------
-# Comparar com os dígitos do CPF original
 if cpf[-2:] == f"{digito1}{digito2}":
     linha()
     print("✅ CPF válido!")
